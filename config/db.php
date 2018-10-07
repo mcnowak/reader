@@ -1,39 +1,66 @@
 <?php
 
 /**
-*
 * db.php
 *
-* Database configuration
+* Database configuration.
 *
 * @version  1.0
 * @author   Maciej Nowakowski
 */
 
 class Db {
-    private static $db;
-    private static $dbhost = 'localhost';
-    private static $dbuser = 'root';
-    private static $dbpass = '';
-    private static $dbname = 'systems';
 
     /**
+    * The database connection.
     *
-    * Connection between PHP and a database server
+    * @var object
+    */
+    private static $_db;
+
+    /**
+    * The database host.
     *
-    * @return object
+    * @var string
+    */
+    private static $_dbHost = 'localhost';
+
+    /**
+    * The database user.
     *
+    * @var string
+    */
+    private static $_dbUser = 'root';
+
+    /**
+    * The database password.
+    *
+    * @var string
+    */
+    private static $_dbPass = '';
+
+    /**
+    * The database name.
+    *
+    * @var string
+    */
+    private static $_dbName = 'systems';
+
+    /**
+    * Connection between PHP and a database server.
+    *
+    * @return object PDO Database connection.
     */
     public static function init() {
-        if (!self::$db) {
+        if (!self::$_db) {
             try {
-                $dsn = "mysql:host=" . self::$dbhost . ";dbname=" . self::$dbname . ";charset=utf8";
-                self::$db = new PDO($dsn, self::$dbuser, self::$dbpass);
-            } catch (PDOException $e) {
-                error_log($e->getMessage());
-                die("A database error was encountered -> " . $e->getMessage() );
+                $dsn = "mysql:host=" . self::$_dbHost . ";dbname=" . self::$_dbName . ";charset=utf8";
+                self::$_db = new PDO($dsn, self::$_dbUser, self::$_dbPass);
+            } catch (PDOException $ex) {
+                error_log($ex->getMessage());
+                die("A database error was encountered -> " . $ex->getMessage() );
             }
         }
-        return self::$db;
+        return self::$_db;
     }
 }

@@ -1,10 +1,9 @@
 <?php
 
 /**
-*
 * index.php
 *
-* Index file
+* Index file.
 *
 * @version	1.0
 * @author	Maciej Nowakowski
