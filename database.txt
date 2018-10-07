@@ -1,0 +1,295 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Oct 08, 2018 at 12:18 AM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 5.6.38
+
+SET FOREIGN_KEY_CHECKS=0;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `systems`
+--
+CREATE DATABASE IF NOT EXISTS `systems` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `systems`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rss_channel`
+--
+
+CREATE TABLE `rss_channel` (
+  `id` bigint(20) NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Truncate table before insert `rss_channel`
+--
+
+TRUNCATE TABLE `rss_channel`;
+--
+-- Dumping data for table `rss_channel`
+--
+
+INSERT INTO `rss_channel` (`id`, `created`, `modified`) VALUES
+(1, '2018-10-07 21:45:27', '2018-10-07 22:15:22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rss_channel_data`
+--
+
+CREATE TABLE `rss_channel_data` (
+  `rss_channel_id` bigint(20) NOT NULL,
+  `rss_channel_element_id` bigint(20) NOT NULL,
+  `value` varchar(256) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Truncate table before insert `rss_channel_data`
+--
+
+TRUNCATE TABLE `rss_channel_data`;
+--
+-- Dumping data for table `rss_channel_data`
+--
+
+INSERT INTO `rss_channel_data` (`rss_channel_id`, `rss_channel_element_id`, `value`) VALUES
+(1, 1, 'RSS Google channel'),
+(1, 2, 'https://www.google.com'),
+(1, 3, 'Google descriptionn'),
+(1, 4, 'en-gb'),
+(1, 5, 'Copyright 2018');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rss_channel_element`
+--
+
+CREATE TABLE `rss_channel_element` (
+  `id` bigint(11) NOT NULL,
+  `element` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `is_optional` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Truncate table before insert `rss_channel_element`
+--
+
+TRUNCATE TABLE `rss_channel_element`;
+--
+-- Dumping data for table `rss_channel_element`
+--
+
+INSERT INTO `rss_channel_element` (`id`, `element`, `is_optional`) VALUES
+(1, 'title', 0),
+(2, 'link', 0),
+(3, 'description', 0),
+(4, 'language', 1),
+(5, 'copyright', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rss_item`
+--
+
+CREATE TABLE `rss_item` (
+  `id` bigint(20) NOT NULL,
+  `rss_channel_id` bigint(20) NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Truncate table before insert `rss_item`
+--
+
+TRUNCATE TABLE `rss_item`;
+--
+-- Dumping data for table `rss_item`
+--
+
+INSERT INTO `rss_item` (`id`, `rss_channel_id`, `created`, `modified`) VALUES
+(1, 1, '2018-10-07 22:30:05', '2018-10-07 23:05:58'),
+(2, 1, '2018-10-07 23:00:00', NULL),
+(3, 1, '2018-10-07 23:02:23', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rss_item_data`
+--
+
+CREATE TABLE `rss_item_data` (
+  `rss_item_id` bigint(20) NOT NULL,
+  `rss_item_element_id` bigint(20) NOT NULL,
+  `value` varchar(256) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Truncate table before insert `rss_item_data`
+--
+
+TRUNCATE TABLE `rss_item_data`;
+--
+-- Dumping data for table `rss_item_data`
+--
+
+INSERT INTO `rss_item_data` (`rss_item_id`, `rss_item_element_id`, `value`) VALUES
+(1, 1, 'Google Ads'),
+(1, 2, 'https://ads.google.com/intl/en_uk/home/?subid=ww-ww-et-g-awa-a-g_hpafoot1_1!o2&amp;utm_source=google.com&amp;utm_medium=referral&amp;utm_campaign=google_hpafooter&amp;fg=1'),
+(1, 3, 'Ads description'),
+(2, 1, 'Google News'),
+(2, 2, 'https://news.google.com/'),
+(2, 3, 'Google News is a news aggregator and app developed by Google. It presents a continuous, customizable flow of articles organized from thousands of publishers and magazines. Google News is available on Android, iOS, and the web.'),
+(2, 4, 'Wikipedia'),
+(3, 1, 'Google Maps'),
+(3, 2, 'https://maps.google.com/'),
+(3, 3, 'Find local businesses, view maps and get driving directions in Google Maps.'),
+(3, 4, 'Google');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rss_item_element`
+--
+
+CREATE TABLE `rss_item_element` (
+  `id` bigint(20) NOT NULL,
+  `element` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `is_optional` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Truncate table before insert `rss_item_element`
+--
+
+TRUNCATE TABLE `rss_item_element`;
+--
+-- Dumping data for table `rss_item_element`
+--
+
+INSERT INTO `rss_item_element` (`id`, `element`, `is_optional`) VALUES
+(1, 'title', 0),
+(2, 'link', 1),
+(3, 'description', 0),
+(4, 'author', 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `rss_channel`
+--
+ALTER TABLE `rss_channel`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rss_channel_data`
+--
+ALTER TABLE `rss_channel_data`
+  ADD UNIQUE KEY `index_rss_channel_item_id_element_id` (`rss_channel_id`,`rss_channel_element_id`) USING BTREE,
+  ADD KEY `fk_rss_channel_element_id_1` (`rss_channel_element_id`);
+
+--
+-- Indexes for table `rss_channel_element`
+--
+ALTER TABLE `rss_channel_element`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rss_item`
+--
+ALTER TABLE `rss_item`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_rss_item_rss_channel_id` (`rss_channel_id`);
+
+--
+-- Indexes for table `rss_item_data`
+--
+ALTER TABLE `rss_item_data`
+  ADD UNIQUE KEY `index_rss_item_channel_id_element_id` (`rss_item_id`,`rss_item_element_id`),
+  ADD KEY `fk_rss_item_element_id` (`rss_item_element_id`);
+
+--
+-- Indexes for table `rss_item_element`
+--
+ALTER TABLE `rss_item_element`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `rss_channel`
+--
+ALTER TABLE `rss_channel`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `rss_channel_element`
+--
+ALTER TABLE `rss_channel_element`
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `rss_item`
+--
+ALTER TABLE `rss_item`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+
+--
+-- AUTO_INCREMENT for table `rss_item_element`
+--
+ALTER TABLE `rss_item_element`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `rss_channel_data`
+--
+ALTER TABLE `rss_channel_data`
+  ADD CONSTRAINT `fk_rss_channel_element_id_1` FOREIGN KEY (`rss_channel_element_id`) REFERENCES `rss_channel_element` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_rss_channel_id_1` FOREIGN KEY (`rss_channel_id`) REFERENCES `rss_channel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `rss_item`
+--
+ALTER TABLE `rss_item`
+  ADD CONSTRAINT `fk_rss_item_rss_channel_id` FOREIGN KEY (`rss_channel_id`) REFERENCES `rss_channel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `rss_item_data`
+--
+ALTER TABLE `rss_item_data`
+  ADD CONSTRAINT `fk_rss_item_element_id` FOREIGN KEY (`rss_item_element_id`) REFERENCES `rss_item_element` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_rss_item_id` FOREIGN KEY (`rss_item_id`) REFERENCES `rss_item` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
